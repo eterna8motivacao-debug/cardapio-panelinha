@@ -1,0 +1,16 @@
+             
+                       
+body {background-image: url(../img/Backcround VQ.png); 
+    text-align: center;
+    font-family:  Arial, cursive;
+}
+
+img {
+    display: block;
+    margin: 20px auto;
+    max-width: 900px; /* controla tamanho */
+}
+
+p {
+    font-family: cursive;
+}

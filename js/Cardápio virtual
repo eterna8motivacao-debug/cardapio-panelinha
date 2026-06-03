@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Virtual</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="menu-header">
+        <h1>Cardápio Virtual</h1>
+        <p>Escaneie e peça direto no WhatsApp</p>
+    </header>
+
+    <main id="cardapio-container">
+        <section class="categoria" id="porcoes">
+            <h2>🍟 Porções</h2>
+            <div class="itens-grid" id="lista-itens">
+                <!-- Os itens serão injetados aqui pelo funcoes.js -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="https://wa.me/55SEUNUMERO?text=Olá! Vim pelo cardápio virtual." 
+           class="btn-whatsapp" target="_blank">
+            📲 Falar no WhatsApp
+        </a>
+    </footer>
+
+    <script src="funcoes.js"></script>
+</body>
+</html>

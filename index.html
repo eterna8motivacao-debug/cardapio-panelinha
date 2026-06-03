@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Virtual</title>
+    
+       <style>
+.menu-header {
+    position: relative;
+    background: linear-gradient(135deg, #ff6b6b, #ee5253); 
+    color: #ffffff;
+    text-align: center;
+    padding: 2.5rem 1rem;  /* Aumentei o padding top */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: visible;  /* ← ISSO É IMPORTANTE! Deixa a logo "sair" do header */
+}
+
+.header-texto {
+    text-align: center;
+}
+
+.header-logo {
+    position: absolute;
+    top: 35px;
+    right: 150px;
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.4));
+    animation: flutuar 3s ease-in-out infinite;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+}
+
+.header-logo:hover {
+    /* ✅ Combina os 3 transforms: escala + rotação + posição */
+    transform: scale(1.1) rotate(5deg) translateY(-10px);
+    filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5));
+    animation-play-state: paused;  /* ⏸️ Pausa a flutuação para não conflitar */
+}
+
+@keyframes flutuar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* No celular */
+@media (max-width: 600px) {
+    .menu-header {
+        padding-top: 2rem;
+    }
+    .header-logo {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: 120px;
+        margin: 0 auto;
+        display: block;
+    }
+}
+       /* Reset e Variáveis */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cor-primaria: #e63946;
+    --cor-secundaria: #f4a261;
+    --cor-fundo: #f8f9fa;
+    --cor-texto: #1d3557;
+    --cor-branco: #ffffff;
+    --sombra: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Corpo */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* AQUI ENTRA A IMAGEM QUE VOCÊ FEZ */
+   background-image: url('fundo-cardapio.png');
+    
+    background-size: cover;       /* Cobre a tela toda */
+    background-position: center;  /* Centraliza */
+    background-attachment: scroll; /* O fundo fica parado enquanto rola */
+    background-repeat: no-repeat;
+    
+    color: #1d3557;
+    line-height: 1.6;
+    padding-bottom: 100px;
+}
+
+/* Header */
+.menu-header {
+    background: linear-gradient(135deg, #ff6b6b, #ee5253); 
+    color: #ffffff;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.menu-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.menu-header p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+/* Container Principal */
+#cardapio-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+}
+
+/* Categorias */
+.categoria {
+    margin-bottom: 2rem;
+}
+
+.categoria h2 {
+    color: var(--cor-primaria);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--cor-secundaria);
+}
+
+/* Grid de Itens */
+.itens-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+
+ /* Card do Item - Efeito Vidro Premium */
+.item-card {
+    /* Menos opacidade (0.85) para ver o fundo atrás */
+    background: rgba(255, 255, 255, 0.85); 
+    
+    /* O SEGREDO DO VIDRO FOSCO: Desfoque do que está atrás */
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); /* Para Safari/iPhone */
+    
+    border-radius: 12px;
+    padding: 1.2rem;
+    /* Sombra mais suave para o efeito vidro */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); 
+    transition: transform 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.6); /* Borda mais brilhante */
+}
+
+
+.item-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.item-info h3 {
+    color: var(--cor-texto);
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.item-info p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.item-preco {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    margin-left: 1rem;
+}
+
+/* Botão WhatsApp Fixo */
+.menu-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--cor-branco);
+    padding: 1rem;
+    box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    z-index: 1000;
+}
+
+.btn-whatsapp {
+    display: inline-block;
+    background: #25d366;
+    color: var(--cor-branco);
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: var(--sombra);
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+}
+
+.btn-whatsapp:hover {
+    background: #128c7e;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+}
+
+/* Responsivo - Desktop */
+@media (min-width: 768px) {
+    .itens-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .menu-header h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Animação de Seleção */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* Modal */
+.modal {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:2000;
+}
+.modal-content {
+    background: #fff; padding:1.5rem; border-radius:12px; width:90%; max-width:400px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+.modal-content h3 { color:var(--cor-primaria); margin-bottom:1rem; }
+.modal-content input {
+    width:100%; padding:0.8rem; font-size:1.2rem; margin:1rem 0;
+    border:2px solid var(--cor-secundaria); border-radius:8px; text-align:center;
+}
+.modal-botoes { display:flex; gap:1rem; justify-content:flex-end; }
+.modal-botoes button {
+    padding:0.8rem 1.5rem; border:none; border-radius:8px; font-weight:bold; cursor:pointer;
+}
+.modal-botoes button:first-child { background:#666; color:#fff; }
+.modal-botoes button:last-child { background:var(--cor-primaria); color:#fff; }
+
+/* Botão Finalizar */
+.btn-finalizar {
+    background:linear-gradient(135deg, #e63946, #d90429);
+    color:#fff; border:none; padding:1rem 2rem; border-radius:50px;
+    font-weight:bold; font-size:1.1rem; box-shadow:0 4px 15px rgba(230,57,70,0.4);
+    cursor:pointer; transition:transform 0.2s; width:90%; max-width:400px;
+}
+.btn-finalizar:hover { transform:scale(1.03); }
+
+/* Card Selecionado */
+.item-card.selecionado {
+    border:3px solid var(--cor-primaria);
+    background:rgba(230,57,70,0.1);
+    animation:pulse 0.3s ease;
+}
+
+        
+        </style>
+</head>
+
+<body>
+    <header class="menu-header">
+        <div class="header-texto">
+            <h1>Cardápio Virtual</h1>
+            <p>Faça seu pedido e aproveite essa experiência !</p>
+        </div>
+        <img src="logo-panelinha.png" alt="Logo Panelinha do Sertão" class="header-logo">
+    </header>
+
+    <main id="cardapio-container">
+        <section class="categoria" id="porcoes">
+            <h2>🍟 Porções</h2>
+            <!-- ✅ CONTAINER ONDE OS CARDS SERÃO INJETADOS -->
+            <div class="itens-grid" id="lista-itens"></div>
+        </section>
+    </main>
+
+    <!-- ✅ MODAL (FORA DO MAIN, ANTES DO FOOTER) -->
+    <div id="modal-quantidade" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3 id="modal-nome-item">Item</h3>
+            <p>Preço unitário: <strong id="modal-preco">R$ 0,00</strong></p>
+            <label>Quantidade:</label>
+            <input type="number" id="input-quantidade" value="1" min="1" max="20">
+            <div class="modal-botoes">
+                <button onclick="fecharModal()">Cancelar</button>
+                <button onclick="confirmarQuantidade()">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ BOTÃO FINALIZAR (FORA DO MAIN) -->
+    <div id="container-finalizar" style="display:none; position:fixed; bottom:80px; left:0; right:0; text-align:center; z-index:999;">
+        <button id="btn-finalizar" class="btn-finalizar" onclick="finalizarPedido()">
+            🛒 Finalizar Pedido • <span id="valor-total">R$ 0,00</span>
+        </button>
+    </div>
+
+    <footer>
+        <a href="https://chat.whatsapp.com/DZKXBFxUBbS0kSWefgIgS4" 
+           class="btn-whatsapp" target="_blank">
+            📲 Mais opções AQUI!
+        </a>
+    </footer>
+
+    <!-- ✅ JS EXTERNO (SEM <head> SOBRENDO!) -->
+    <script src="functioncardapio.js"></script>
+</body>
+</html>

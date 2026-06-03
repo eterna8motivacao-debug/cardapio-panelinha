@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Vaqueira</title>
+
+<style>
+body{
+    background-image: url("img/Backcround VQ.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color:rgb(75, 0, 0);
+    font-family:Arial, cursive;
+    text-align:center;
+}
+
+h1{
+    margin-top:30px;
+}
+
+.player{
+    margin-top:20px;
+}
+
+button{
+    padding:10px 15px;
+    margin:5px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    opacity:0.8;
+}
+
+img{
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>" Bora vê PRIU! "</h1>
+
+<p>
+Minha LINDONA, as coisas ficaram muito coisadas desde que coisamos pela ultima vez,
+e eu entendo as coisas, mas a coisa toda ta durando muito,
+e meu universo ta todo coisado desde então
+por isso acredito que vamos descoisar logo pra poder coisar de novo.
+</p>
+
+<audio id="audio" controls></audio>
+
+<div class="player">
+    <button onclick="playMusic()">Play</button>
+    <button onclick="pauseMusic()">Pause</button>
+    <button onclick="prevMusic()">◀ Voltar</button>
+    <button onclick="nextMusic()">Avançar ▶</button>
+    <button onclick="shuffleMusic()">Aleatório 🔀</button>
+</div>
+
+<hr>
+
+<button onclick="toggleFoto()">Mostrar / Ocultar Foto</button>
+<button onclick="trocarFoto()">Trocar Foto</button>
+
+<br>
+
+<img id="foto"
+     src="praticaProgramacao/img/foto1.jpeg"
+     style="display:none; width:900px; max-width:100%;">
+
+<script>
+
+// ===== PLAYER =====
+
+const audio = document.getElementById("audio");
+
+const playlist = [
+    "./BregaPriu/1.mp3",
+    "./BregaPriu/2.mp3",
+    "./BregaPriu/3.mp3",
+    "./BregaPriu/4.mp3",
+    "./BregaPriu/5.mp3",
+    "./BregaPriu/6.mp3",
+    "./BregaPriu/7.mp3",
+    "./BregaPriu/8.mp3",
+    "./BregaPriu/9.mp3",
+    "./BregaPriu/10.mp3",
+    "./BregaPriu/11.mp3",
+    "./BregaPriu/12.mp3",
+    "./BregaPriu/13.mp3",
+    "./BregaPriu/14.mp3",
+    "./BregaPriu/15.mp3",
+    "./BregaPriu/16.mp3",
+    "./BregaPriu/17.mp3",
+    "./BregaPriu/18.mp3",
+    "./BregaPriu/19.mp3",
+    "./BregaPriu/20.mp3",
+    "./BregaPriu/21.mp3",
+    "./BregaPriu/22.mp3",
+    "./BregaPriu/23.mp3",
+    "./BregaPriu/24.mp3",
+    "./BregaPriu/25.mp3",
+    "./BregaPriu/26.mp3"
+];
+
+let current = 0;
+audio.src = playlist[current];
+
+function playMusic(){
+    audio.play();
+}
+
+function pauseMusic(){
+    audio.pause();
+}
+
+function nextMusic(){
+    current = (current + 1) % playlist.length;
+    audio.src = playlist[current];
+    audio.play();
+}
+
+function prevMusic(){
+    current = (current - 1 + playlist.length) % playlist.length;
+    audio.src = playlist[current];
+    audio.play();
+}
+
+function shuffleMusic(){
+    current = Math.floor(Math.random() * playlist.length);
+    audio.src = playlist[current];
+    audio.play();
+}
+
+audio.addEventListener("ended", nextMusic);
+
+
+// ===== IMAGENS =====
+
+const foto = document.getElementById("foto");
+
+const imagens = [
+    "praticaProgramacao/img/foto1.jpeg",
+    "praticaProgramacao/img/foto2.jpeg",
+    "praticaProgramacao/img/foto3.jpeg",
+    "praticaProgramacao/img/foto4.jpeg",
+    "praticaProgramacao/img/foto5.jpeg"
+];
+
+let indice = 0;
+
+function toggleFoto(){
+    foto.style.display =
+        foto.style.display === "none" ? "block" : "none";
+}
+
+function trocarFoto(){
+    indice = (indice + 1) % imagens.length;
+    foto.src = imagens[indice];
+}
+
+</script>
+
+</body>
+</html>
